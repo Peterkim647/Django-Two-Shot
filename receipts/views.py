@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
-from receipts.models import Receipt
+from receipts.models import Receipt, ExpenseCategory, Account
 from django.contrib.auth.decorators import login_required
-from receipts.forms import ReceiptForm
+from receipts.forms import ReceiptForm, ExpenseCategoryForm
 
 
 @login_required
 def receipt_list(request):
-    logged_in_user = request.user
-    receipt_list = Receipt.objects.filter(purchaser=logged_in_user)
+    receipt_list = Receipt.objects.filter(purchaser=request.user)
     context = {
         "receipt_list": receipt_list
         }
@@ -29,3 +28,38 @@ def create_receipt(request):
         "form": form,
     }
     return render(request, "receipts/create.html", context)
+
+
+@login_required
+def category_list(request):
+    category_list = ExpenseCategory.objects.filter(owner=request.user)
+    context = {
+        "category_list": category_list
+        }
+    return render(request, "receipts/category-list.html", context)
+
+
+@login_required
+def account_list(request):
+    account_list = Account.objects.filter(owner=request.user)
+    context = {
+        "account_list": account_list
+        }
+    return render(request, "receipts/account-list.html", context)
+
+
+@login_required
+def create_category(request):
+    if request.method == "POST":
+        form = ExpenseCategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(False)
+            category.owner = request.user
+            category.save()
+            return redirect("category_list")
+    else:
+        form = ExpenseCategoryForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "receipts/category-create.html", context)
