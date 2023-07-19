@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Receipt
+{% endblock %}
+
+{% block content %}
         <div>
             <h1>Create Receipt</h1>
             <form method="post">
@@ -15,6 +13,4 @@
                 <button>Create</button>
             </form>
         </div>
-    </main>
-</body>
-</html>
+{% endblock %}

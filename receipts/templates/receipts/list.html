@@ -1,37 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <h1>My Receipts</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Vendor</th>
-                    <th>Total</th>
-                    <th>Tax</th>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Account</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for data in receipt_list.all %}
-                <tr>
-                    <td>{{ data.vendor }}</td>
-                    <td>{{ data.total }}</td>
-                    <td>{{ data.tax }}</td>
-                    <td>{{ data.date|date:"m/d/y" }}</td>
-                    <td>{{ data.category.name }}</td>
-                    <td>{{ data.account.name }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    My Expenses
+{% endblock %}
+
+{% block content %}
+    <nav>
+        <li>
+            <a href="{% url 'create_receipt' %}">Create a receipt</a>
+        </li>
+        <li>
+            <a href="{% url 'category_list' %}">My Categories</a>
+        </li>
+        <li>
+            <a href="{% url 'account_list' %}">My Accounts</a>
+        </li>
+    </nav>
+    <h1>My Receipts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Vendor</th>
+                <th>Total</th>
+                <th>Tax</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Account</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in receipt_list.all %}
+            <tr>
+                <td>{{ data.vendor }}</td>
+                <td>{{ data.total }}</td>
+                <td>{{ data.tax }}</td>
+                <td>{{ data.date|date:"m/d/y" }}</td>
+                <td>{{ data.category.name }}</td>
+                <td>{{ data.account.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,12 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
+{% extends 'base.html' %}
+
+{% block title %}
+    My Expenses
+{% endblock %}
+
+{% block content %}
+    <nav>
+        <li>
+            <a href="{% url 'create_category' %}">Create a category</a>
+        </li>
+        <li>
+            <a href="{% url 'account_list' %}">My Accounts</a>
+        </li>
+        <li>
+            <a href="{% url 'home' %}">My Receipts</a>
+        </li>
+    </nav>
+    <div>
         <h1>My Expenses</h1>
         <table>
             <thead>
@@ -24,6 +34,5 @@
                 {% endfor %}
             </tbody>
         </table>
-    </main>
-</body>
-</html>
+    </div>
+{% endblock %}
